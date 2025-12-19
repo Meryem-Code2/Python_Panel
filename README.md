@@ -4,8 +4,6 @@ A **Python-based terminal dashboard** built with **Rich**, combining real-time *
 
 The application features a **theme system with live previews**, location-based weather data using external APIs, and automatic parsing of local bank CSV statements to calculate **expenses, income, and account balance** — all rendered in a structured and readable terminal layout.
 
----
-
 ## ✨ Features
 
 ### 🌦 Weather
@@ -35,8 +33,6 @@ The application features a **theme system with live previews**, location-based w
   - Current account balance
 - Transaction table rendered with **Rich**
 
----
-
 ## 🛠 Technologies Used
 
 - **Python 3**
@@ -46,8 +42,6 @@ The application features a **theme system with live previews**, location-based w
 - **Requests**
 - **PyFiglet**
 
----
-
 ## 📂 Folder Structure
 
 02_Bankauszüge/ # Bank CSV statements (latest file auto-loaded)
@@ -56,8 +50,6 @@ dashboard.py # Main application logic
 
 yaml
 Code kopieren
-
----
 
 ## 🚀 Usage
 
@@ -78,7 +70,7 @@ bash
 Code kopieren
 python dashboard.py
 Choose a theme and enter a city name
----
+
 ## 🔒 Security & Privacy Notice
 example.csv contains fake demo data
 
