@@ -59,9 +59,9 @@ class WeatherService:
         country = data["city"]["country"]
 
         table = Table(show_header=False, box=None, padding=(0, 1), pad_edge=False)
-        table.add_column("Time", width=5, no_wrap=True)
-        table.add_column("Weather", width=18, overflow="ellipsis")
-        table.add_column("Data", width=18, justify="right", no_wrap=True, overflow="ellipsis")
+        table.add_column("Time", width=5, no_wrap=True,style="app.weather.data")
+        table.add_column("Weather", width=18, overflow="ellipsis",style="app.weather.data")
+        table.add_column("Data", width=18, justify="right", no_wrap=True, overflow="ellipsis",style="app.weather.data")
 
         items = data.get("list", [])
         for i in range(min(rows, len(items))):
@@ -95,9 +95,9 @@ class WeatherService:
         country = data["city"]["country"]
 
         table = Table(show_header=False, box=None, padding=(0, 1), pad_edge=False)
-        table.add_column("Date", width=6, no_wrap=True)
-        table.add_column("Weather", width=18, overflow="ellipsis")
-        table.add_column("Data", width=18, justify="right", no_wrap=True, overflow="ellipsis")
+        table.add_column("Date", width=6, no_wrap=True,style="app.weather.data")
+        table.add_column("Weather", width=18, overflow="ellipsis",style="app.weather.data")
+        table.add_column("Data", width=18, justify="right", no_wrap=True, overflow="ellipsis",style="app.weather.data")
 
         items = data.get("list", [])
         for i in range(min(rows, len(items))):

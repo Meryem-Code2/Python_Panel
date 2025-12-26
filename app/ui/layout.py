@@ -1,14 +1,10 @@
 from __future__ import annotations
-
 from datetime import datetime
-from os import name
-
 from rich.layout import Layout
 from rich.rule import Rule
 from rich.table import Table
 from rich.text import Text
 import pyfiglet
-
 from app.ui.utils import clamp_text
 
 def build_status_bar(
@@ -22,24 +18,26 @@ def build_status_bar(
     now_local = datetime.now().strftime("%H:%M:%S")
 
     return Text.assemble(
-        (" ● ", "label"),
-        ("STATUS ", "table.header"),
-        (now_local, "money.neutral"),
-        (" | ", "label"),
-        (clamp_text(city, 14), "money.good"),
-        (" ", "label"),
-        (f"{coords[0]:.2f},{coords[1]:.2f}", "money.neutral"),
-        (" | ", "label"),
-        ("Next ", "label"),
-        (f"{max(0, next_refresh_in_seconds)}s", "money.neutral"),
+        (" ● ", "statusbart.text"),
+        ("STATUS ", "statusbart.text"),
+        (now_local, "statusbart.Time"),
+        (" | ", "statusbart.text"),
+        (clamp_text(city, 14), "statusbart.City"),
+        (" ", "statusbart.text"),
+        (f"{coords[0]:.2f},{coords[1]:.2f}", "statusbart.Time"),
+        (" | ", "statusbart.text"),
+        ("Next ", "statusbart.text"),
+        (f"{max(0, next_refresh_in_seconds)}s", "statusbart.Time"),
     )
 
 def build_banking_table(transactions: list[list[str]]) -> Table:
     bank_table = Table(
         title=f"Letzte {len(transactions)} Transaktionen",
         show_header=True,
-        header_style="table.header",
-        title_style="table.title",
+        header_style="app.money.table.columHeader",
+        title_style="app.money.table.title",
+        border_style="app.money.table.border",
+        row_styles=["app.money.table.row"]
     )
     bank_table.add_column("Buchung", no_wrap=True, width=10)
     bank_table.add_column("Valuta", no_wrap=True, width=10)
@@ -119,15 +117,16 @@ def build_layout(
         Layout(name="root/weather/forecast/weekly/data"),
     )
 
-    layout["root/weather/info/name"].update(Text(pyfiglet.figlet_format(city or "—"), style="title"))
+    layout["root/weather/info/name"].update(Text(pyfiglet.figlet_format(city or "—"), style="app.title"))
     layout["root/weather/info/location"].update(
         Text(f"Lat| {coords[0]:.5f}  Lon| {coords[1]:.5f}  Country| {country}",
     no_wrap = True,
-    overflow = "ellipsis")
+    overflow = "ellipsis",
+    style="app.subtitle"    )
     )
 
-    layout["root/weather/forecast/hourly/title"].update(Text("Hourly Forecast", style="label"))
-    layout["root/weather/forecast/weekly/title"].update(Text("Weekly Forecast", style="label"))
+    layout["root/weather/forecast/hourly/title"].update(Text("Hourly Forecast", style="app.weather.title"))
+    layout["root/weather/forecast/weekly/title"].update(Text("Weekly Forecast", style="app.weather.title"))
     layout["root/weather/forecast/hourly/data"].update(hourly_table)
     layout["root/weather/forecast/weekly/data"].update(weekly_table)
 
@@ -142,16 +141,16 @@ def build_layout(
         Layout(name="root/banking/info/account"),
     )
 
-    layout["root/banking/info/title"].update(Text(pyfiglet.figlet_format("Banking"), style="title"))
+    layout["root/banking/info/title"].update(Text(pyfiglet.figlet_format("Banking"), style="app.money.title"))
 
-    saldo_style = "money.good" if balance > 0 else "money.bad" if balance < 0 else "money.neutral"
+    saldo_style = "app.money.good" if balance > 0 else "app.money.bad" if balance < 0 else "app.money.neutral"
 
     layout["root/banking/info/account"].update(
         Text.assemble(
             ("\nAusgegeben| ", "label"),
-            (f"{total_spent:.2f}", "money.bad"),
+            (f"{total_spent:.2f}", "app.money.bad"),
             ("   Bekommen| ", "label"),
-            (f"{total_received:.2f}", "money.good"),
+            (f"{total_received:.2f}", "app.money.good"),
             ("\nKontosumme| ", "label"),
             (f"{balance:.2f}", saldo_style),
             ("\n", "")

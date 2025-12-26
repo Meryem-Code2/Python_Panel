@@ -24,7 +24,7 @@ def main():
 
     config = Config(CONFIG_PATH)
 
-    console = Console(theme=STYLES.get(config.data["theme"], STYLES["classic"]))
+    console = Console(theme=STYLES.get(config.data["theme"], STYLES["autumn"]))
 
     refresh_seconds = max(10, int(config.data["refresh_minutes"]) * 60)
     last_fetch_at = 0.0
